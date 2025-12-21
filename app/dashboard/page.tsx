@@ -45,7 +45,7 @@ export default async function DashboardPage() {
     const now = new Date();
 
     return (
-        <div className="min-h-screen bg-background text-foreground flex flex-col transition-colors duration-300">
+        <div className="min-h-screen bg-background text-foreground flex flex-col transition-colors duration-300 w-full overflow-x-hidden relative">
             <RealtimeRefresher />
             {/* Header */}
             <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full">

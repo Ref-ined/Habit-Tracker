@@ -43,7 +43,7 @@ export default async function SharedHabitPage({ params }: { params: Promise<{ co
     const now = new Date();
 
     return (
-        <div className="min-h-screen bg-background text-foreground flex flex-col transition-colors duration-300">
+        <div className="min-h-screen bg-background text-foreground flex flex-col transition-colors duration-300 w-full overflow-x-hidden relative">
             <RealtimeRefresher />
 
             {/* Header */}
