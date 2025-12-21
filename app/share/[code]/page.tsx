@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ModeToggle } from "@/components/mode-toggle";
 import { RealtimeRefresher } from "@/components/realtime-refresher";
+import { AIInsights } from "@/components/ai-insights";
 
 export default async function SharedHabitPage({ params }: { params: Promise<{ code: string }> }) {
     const code = (await params).code;
@@ -65,15 +66,20 @@ export default async function SharedHabitPage({ params }: { params: Promise<{ co
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 w-full px-4 sm:px-8 py-8 sm:py-12">
-                <div className="flex flex-col gap-8 sm:gap-12">
+            <main className="flex-1 w-full px-4 sm:px-8 py-4 sm:py-6">
+                <div className="flex flex-col gap-4 sm:gap-6">
                     <div className="space-y-4">
                         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 sm:mb-4">Shared Habits</h1>
                         <p className="text-sm sm:text-base text-muted-foreground">Viewing professional consistency and progress.</p>
                     </div>
 
+                    <AIInsights
+                        habits={habits}
+                        logs={logs}
+                    />
+
                     <Tabs defaultValue="monthly" className="w-full">
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8 sm:mb-10 overflow-x-auto no-scrollbar pb-1">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6 overflow-x-auto no-scrollbar pb-1">
                             <TabsList className="bg-muted border border-border w-full sm:w-auto flex justify-start sm:justify-center h-auto p-1 overflow-x-auto no-scrollbar">
                                 <TabsTrigger value="daily" className="flex-1 sm:flex-none text-xs sm:text-sm py-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">Daily</TabsTrigger>
                                 <TabsTrigger value="weekly" className="flex-1 sm:flex-none text-xs sm:text-sm py-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">Weekly</TabsTrigger>

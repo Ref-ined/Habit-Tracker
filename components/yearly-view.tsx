@@ -61,8 +61,8 @@ export default function YearlyView({ logs, habits, currentDate = new Date(), rea
         : [];
 
     return (
-        <div className="space-y-8 sm:space-y-12">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                 <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto overflow-x-auto no-scrollbar pb-1 sm:pb-0">
                     <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-lg border border-border shrink-0">
                         <Button variant="ghost" size="icon" onClick={prevYear} className="h-7 w-7 sm:h-8 sm:w-8 text-muted-foreground hover:text-foreground">

@@ -173,7 +173,7 @@ export function SettingsForm({ userEmail, initialFullName, initialAvatarUrl }: S
             <div className="h-px bg-border my-8" />
 
             {/* Danger Zone */}
-            <div className="space-y-6 flex flex-col items-center sm:items-start">
+            <div className="space-y-6 flex flex-col items-center sm:items-start p-6 pt-0">
                 <div className="space-y-1 text-center sm:text-left">
                     <h4 className="font-semibold text-destructive">Account Session</h4>
                     <p className="text-sm text-muted-foreground">Log out from your current session.</p>
