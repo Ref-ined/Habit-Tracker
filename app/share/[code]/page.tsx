@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LayoutGrid } from "lucide-react";
 import HabitGrid from "@/components/habit-grid";
@@ -11,6 +12,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ModeToggle } from "@/components/mode-toggle";
 import { RealtimeRefresher } from "@/components/realtime-refresher";
 import { AIInsights } from "@/components/ai-insights";
+
+export const revalidate = 60; // Revalidate every 60 seconds
+
+export async function generateMetadata({ params }: { params: Promise<{ code: string }> }): Promise<Metadata> {
+    const code = (await params).code;
+    return {
+        title: `Shared Habits | HabitTrack`,
+        description: `Check out these real-time habit progress and consistency insights.`,
+        openGraph: {
+            title: `Check out my Habits on HabitTrack`,
+            description: `I'm using HabitTrack to build consistency. View my progress here!`,
+            type: 'website',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `Habit Consistency Tracker`,
+            description: `Real-time habit progress and tracking.`,
+        }
+    }
+}
 
 export default async function SharedHabitPage({ params }: { params: Promise<{ code: string }> }) {
     const code = (await params).code;

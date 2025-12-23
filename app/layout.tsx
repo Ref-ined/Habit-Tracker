@@ -5,8 +5,13 @@ import "./globals.css";
 const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Habit Attendance | Track Your Consistency",
-  description: "AI-powered habit tracking for peak performance.",
+  title: "HabitTrack | AI-Powered Consistency Tracker",
+  description: "Track your habits with an attendance-style grid, get AI insights, and build lasting consistency.",
+  openGraph: {
+    title: "HabitTrack",
+    description: "Build habits that stick with AI-powered insights.",
+    type: "website",
+  },
 };
 
 import { Viewport } from "next";
