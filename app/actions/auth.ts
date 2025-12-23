@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
 import { z } from 'zod'
 
@@ -59,10 +60,13 @@ export async function signup(formData: FormData) {
         return { error: result.error.issues[0].message };
     }
 
-    const { error } = await supabase.auth.signUp({
+    const origin = (await headers()).get('origin')
+
+    const { data: { user: signupUser }, error } = await supabase.auth.signUp({
         email: result.data.email,
         password: result.data.password,
         options: {
+            emailRedirectTo: `${origin}/auth/callback`,
             data: {
                 full_name: result.data.name,
             }
@@ -71,6 +75,16 @@ export async function signup(formData: FormData) {
 
     if (error) {
         return { error: error.message }
+    }
+
+    // Check if email confirmation is required (session might be null)
+    if (signupUser && !signupUser.identities?.length) {
+        // User might already exist but not confirmed, or email provider requires confirmation
+        return { success: true, message: 'Check your email to confirm your account!' }
+    }
+
+    if (signupUser && signupUser.identities?.length && !signupUser.email_confirmed_at) {
+        return { success: true, message: 'Check your email to confirm your account!' }
     }
 
     revalidatePath('/', 'layout')

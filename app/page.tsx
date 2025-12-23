@@ -32,6 +32,7 @@ const signupSchema = z.object({
 export default function AuthPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Login Form
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -72,8 +73,16 @@ export default function AuthPage() {
     if (result?.error) {
       setError(result.error);
       setIsLoading(false);
+    } else if (result?.success && result.message) {
+      setSuccessMessage(result.message);
+      setIsLoading(false);
+      signupForm.reset();
     }
-    // If successful, the server action will redirect.
+  };
+
+  const handleTabChange = () => {
+    setError(null);
+    setSuccessMessage(null);
   };
 
   return (
@@ -139,7 +148,7 @@ export default function AuthPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="login" className="w-full">
+              <Tabs defaultValue="login" className="w-full" onValueChange={handleTabChange}>
                 <TabsList className="grid w-full grid-cols-2 bg-muted/50">
                   <TabsTrigger value="login">Login</TabsTrigger>
                   <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -206,6 +215,11 @@ export default function AuthPage() {
                         </FormItem>
                       )} />
                       {error && <div className="text-destructive text-sm font-medium">{error}</div>}
+                      {successMessage && (
+                        <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 p-3 rounded-lg text-sm font-medium animate-in fade-in slide-in-from-top-1">
+                          {successMessage}
+                        </div>
+                      )}
                       <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white" type="submit" disabled={isLoading}>
                         {isLoading ? "Creating Account..." : "Create Account"}
                       </Button>
